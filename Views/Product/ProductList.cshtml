@@ -1,0 +1,41 @@
+﻿@model List<Product_Listing.Models.Product>
+
+@{
+    ViewBag.Title = "Product List";
+}
+
+<div class="container">
+    <h2 class="text-center">Product List</h2>
+
+    @if (!Model.Any())
+    {
+        <p class="text-center">No products added yet.</p>
+    }
+    else
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model)
+                {
+                    <tr>
+                        <td>@product.Name</td>
+                        <td>@product.Price</td>
+                        <td>
+                            <a asp-controller="Product" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-primary">Edit</a>
+                            <a asp-controller="Product" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+    <a asp-controller="Product" asp-action="Index" class="btn btn-primary">Add New Product</a>
+</div>
