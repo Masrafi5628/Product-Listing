@@ -1,12 +1,12 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Product_Listing.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Product_Listing.Controllers
 {
     public class ProductController : Controller
     {
-        
         private static List<Product> products = new List<Product>();
 
         public ActionResult Index()
@@ -17,23 +17,19 @@ namespace Product_Listing.Controllers
         [HttpPost]
         public ActionResult Create(Product product)
         {
-            if (ModelState.IsValid)
+            //if (ModelState.IsValid)
             {
-                product.Id = products.Count + 1; 
+                product.Id = products.Count + 1;
                 products.Add(product);
                 return RedirectToAction("ProductList");
             }
-            return View("Index");
+            //return View("Index");
         }
 
-     
         public ActionResult ProductList()
         {
             return View(products);
         }
-
-
-
 
         public IActionResult Edit(int id)
         {
@@ -42,7 +38,7 @@ namespace Product_Listing.Controllers
             {
                 return NotFound();
             }
-            return View("EditForm",product);
+            return View("EditForm", product);
         }
 
         [HttpPost]
@@ -57,10 +53,13 @@ namespace Product_Listing.Controllers
             return RedirectToAction("ProductList");
         }
 
-        public ActionResult Delete(int id)
+        public IActionResult Delete(int id)
         {
-            Product product = products.Find(p => p.Id == id);
-            products.Remove(product);
+            var product = products.FirstOrDefault(p => p.Id == id);
+            if (product != null)
+            {
+                products.Remove(product);
+            }
             return RedirectToAction("ProductList");
         }
     }

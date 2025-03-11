@@ -1,0 +1,21 @@
+﻿@model Product_Listing.Models.Product
+
+<form asp-controller="Product" asp-action="@ViewData["Action"]" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label asp-for="Name" class="form-label"></label>
+        <input asp-for="Name" class="form-control" required />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Price" class="form-label"></label>
+        <input asp-for="Price" class="form-control" type="number" step="0.01" required />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">@ViewData["ButtonText"]</button>
+    </form>
+
+<a asp-controller="Product" asp-action="ProductList" class="btn btn-secondary mt-2">Cancel</a>

@@ -1,29 +1,18 @@
-﻿@model Product_Listing.Models.Product
+﻿@section PageTitle {
+    Edit Form
+}
+@model Product_Listing.Models.Product
 
 @{
     ViewBag.Title = "Edit Product";
+    ViewData["Action"] = "Edit";
+    ViewData["ButtonText"] = "Save Changes";
 }
+
+
+	
 
 <div class="container">
     <h2>Edit Product</h2>
-
-    <form asp-controller="Product" asp-action="Edit" method="post">
-        <input type="hidden" asp-for="Id" />
-
-        <div class="form-group">
-            <label asp-for="Name" class="form-label"></label>
-            <input asp-for="Name" class="form-control" required />
-            <span asp-validation-for="Name" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="Price" class="form-label"></label>
-            <input asp-for="Price" class="form-control" type="number" step="0.01" required />
-            <span asp-validation-for="Price" class="text-danger"></span>
-        </div>
-
-        <button type="submit" class="btn btn-success">Save Changes</button>
-    </form>
-
-    <a asp-action="ProductList" class="btn btn-secondary">Cancel</a>
+    @await Html.PartialAsync("_ProductForm",Model)
 </div>
